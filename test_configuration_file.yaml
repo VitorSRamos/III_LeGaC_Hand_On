@@ -1,0 +1,197 @@
+#This file was inpired by the full example of using deeplenstronomy.
+DATASET:
+    NAME: ExampleDataset 
+    PARAMETERS:
+        SIZE: 1001
+        OUTDIR: ExampleDataset
+        seed: 0
+
+COSMOLOGY:
+    PARAMETERS:
+        H0: 70.0
+        Om0: 0.3
+
+SPECIES:
+    GALAXY_1:  
+        NAME: SimulatedLens 
+        LIGHT_PROFILE_1: 
+            NAME: SERSIC_ELLIPSE 
+            PARAMETERS:
+                magnitude: 18
+                center_x: 0
+                center_y: 0
+                R_sersic: 
+                    DISTRIBUTION: 
+                        NAME: normal  
+                        PARAMETERS:
+                            mean: 6.0
+                            std: 0.5
+                n_sersic: 
+                    DISTRIBUTION: 
+                        NAME: normal 
+                        PARAMETERS:
+                            mean: 4.0
+                            std: 0.2
+                e1: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.1
+                            maximum: 0.1
+                e2: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.1
+                            maximum: 0.1
+        MASS_PROFILE_1: 
+            NAME: SIE 
+            PARAMETERS:
+                theta_E: 
+                    DISTRIBUTION: 
+                        NAME: uniform
+                        PARAMETERS:
+                            minimum: 1
+                            maximum: 4
+                e1: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.1
+                            maximum: 0.1
+                e2: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.1
+                            maximum: 0.1
+                center_x: 0
+                center_y: 0
+
+    GALAXY_2: 
+        NAME: SimulatedSource
+        LIGHT_PROFILE_1:
+            NAME: SERSIC_ELLIPSE
+            PARAMETERS:
+                magnitude: 19
+                center_x:
+                    DISTRIBUTION:
+                        NAME: normal
+                        PARAMETERS:
+                            mean: 0
+                            std: 1
+                center_y:
+                    DISTRIBUTION:
+                        NAME: normal
+                        PARAMETERS:
+                            mean: 0
+                            std: 1
+                R_sersic: 
+                    DISTRIBUTION: 
+                        NAME: normal  
+                        PARAMETERS:
+                            mean: 6.0
+                            std: 0.5
+                n_sersic: 
+                    DISTRIBUTION: 
+                        NAME: normal  
+                        PARAMETERS:
+                            mean: 4.0
+                            std: 0.2
+                e1: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.1
+                            maximum: 0.2
+                e2: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -1.0
+                            maximum: 1.0
+        MASS_PROFILE_1: 
+            NAME: SIE 
+            PARAMETERS:
+                theta_E: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: 0.5
+                            maximum: 3
+                e1: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.3
+                            maximum: 0.3
+                e2: 
+                    DISTRIBUTION: 
+                        NAME: uniform 
+                        PARAMETERS:
+                            minimum: -0.3
+                            maximum: 0.3
+                center_x:
+                    DISTRIBUTION:
+                        NAME: normal
+                        PARAMETERS:
+                            mean: 0
+                            std: 1
+                center_y:
+                    DISTRIBUTION:
+                        NAME: normal
+                        PARAMETERS:
+                            mean: 0
+                            std: 1
+
+GEOMETRY:
+    CONFIGURATION_1: 
+        NAME: GalaxyGalaxySimulated 
+        FRACTION: 1 
+        PLANE_1: 
+            OBJECT_1: SimulatedLens 
+            PARAMETERS:
+                REDSHIFT:
+                    DISTRIBUTION:
+                        NAME: uniform
+                        PARAMETERS:
+                            minimum: 0.3
+                            maximum: 1
+        PLANE_2: 
+            OBJECT_1: SimulatedSource
+            PARAMETERS:
+                REDSHIFT:
+                    DISTRIBUTION:
+                        NAME: uniform
+                        PARAMETERS:
+                            minimum: 1.3
+                            maximum: 6
+
+# Delve config
+IMAGE:
+    PARAMETERS:
+        exposure_time:
+            DISTRIBUTION:
+                NAME: delve_exposure_time
+                PARAMETERS: None
+        numPix: 87
+        pixel_scale: 0.263
+        psf_type: 'GAUSSIAN'
+        read_noise: 7
+        ccd_gain: 4
+SURVEY:
+    PARAMETERS:
+        BANDS: g,r,i,z
+        seeing:
+            DISTRIBUTION:
+                NAME: delve_seeing
+                PARAMETERS: None
+        magnitude_zero_point:
+            DISTRIBUTION:
+                NAME: delve_magnitude_zero_point
+                PARAMETERS: None
+        sky_brightness:
+            DISTRIBUTION:
+                NAME: delve_sky_brightness
+                PARAMETERS: None
+        num_exposures: 1
